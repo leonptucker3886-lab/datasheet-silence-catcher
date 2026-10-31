@@ -1,0 +1,25 @@
+name: Silence Catcher (hourly)
+on:
+  schedule:
+    - cron: "5 * * * *"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "Silence threshold in minutes"
+        default: "60"
+jobs:
+  catch-silence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run Silence Catcher (fails if anyone is SILENT)
+        run: |
+          ROSTER="${ROSTER_FILE:-roster.json}"
+          if [ ! -f "$ROSTER" ]; then
+            echo "::error::Roster file $ROSTER not found - cannot check for silence."
+            exit 1
+          fi
+          python3 silence_catcher.py "$ROSTER" --minutes "${{ github.event.inputs.minutes || '60' }}"
