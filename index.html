@@ -11,4 +11,5 @@ const lim=+document.getElementById('m').value||60,now=Date.now(),esc=[];let h='<
 d.forEach(x=>{const t=Date.parse(x.last_posted);const mins=isNaN(t)?null:Math.floor((now-t)/6e4);const s=(mins===null||mins>lim)?'SILENT':'ok';if(s==='SILENT')esc.push(x.name);h+=`<tr class="${s}"><td>${x.name}</td><td>${x.last_posted||'?'}</td><td>${mins??'?'}</td><td>${s}</td></tr>`});
 document.getElementById('out').innerHTML=h+'</table>';document.getElementById('esc').textContent=esc.length?'ESCALATE: '+esc.join(', '):'All members active.'}
 sample();
-</script></body></html>
+</script><p id="drill1" style="font-size:12px;color:#666">Drill 1 — Builder: Sgt Davis, 2026-11-01</p>
+</body></html>
