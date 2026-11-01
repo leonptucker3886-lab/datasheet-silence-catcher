@@ -7,6 +7,7 @@ import json, sys, argparse
 from datetime import datetime, timezone
 p=argparse.ArgumentParser(); p.add_argument("roster"); p.add_argument("--minutes",type=int,default=60)
 a=p.parse_args(); now=datetime.now(timezone.utc); silent=[]
+print("Last checked:", now.strftime("%Y-%m-%d %H:%M:%S UTC"))
 for m in json.load(open(a.roster)):
     t=datetime.fromisoformat(m["last_post"].replace("Z","+00:00"))
     mins=int((now-t).total_seconds()//60)
